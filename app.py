@@ -31,7 +31,7 @@ if code_input:
     # HTML形式でハイライト（改行・空白保持）
     highlighted_html = f"""
     <style>{style_defs}</style>
-    <div class="highlight">{highlight(code_input, lexer, html_formatter)}</div>
+    <pre><code class="highlight">{highlight(code_input, lexer, html_formatter)}</code></pre>
     """
 
     # BBCode形式でハイライト出力
