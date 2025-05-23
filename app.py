@@ -22,17 +22,12 @@ style = st.selectbox("🎨 ハイライトスタイルを選択：", list(get_al
 if code_input:
     # Lexerとフォーマッタの取得
     lexer = get_lexer_by_name(lang)
-    html_formatter = HtmlFormatter(style=style, noclasses=False)
+    html_formatter = HtmlFormatter(style=style, noclasses=True)
     bbcode_formatter = get_formatter_by_name("bbcode")
 
-    # スタイル用CSS生成
-    style_defs = html_formatter.get_style_defs('.highlight')
-
     # HTML形式でハイライト（改行・空白保持）
-    highlighted_html = f"""
-    <style>{style_defs}</style>
-    <pre><code class="highlight">{highlight(code_input, lexer, html_formatter)}</code></pre>
-    """
+    raw_html = highlight(code_input, lexer, html_formatter)
+    highlighted_html = f"<pre>{raw_html}</pre>"
 
     # BBCode形式でハイライト出力
     highlighted_bbcode = highlight(code_input, lexer, bbcode_formatter)
