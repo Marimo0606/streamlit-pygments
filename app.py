@@ -2,7 +2,7 @@ import streamlit as st
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name, get_all_lexers
 from pygments.formatters.html import HtmlFormatter
-from pygments.formatters.bbcode import BBCodeFormatter
+from pygments.formatters import get_formatter_by_name
 from pygments.styles import get_all_styles
 
 # タイトル
@@ -23,7 +23,7 @@ if code_input:
     # Lexerとフォーマッタの取得
     lexer = get_lexer_by_name(lang)
     html_formatter = HtmlFormatter(style=style, noclasses=True)
-    bbcode_formatter = BbcodeFormatter()
+    bbcode_formatter = get_formatter_by_name("bbcode")
 
     # HTML形式でハイライト
     highlighted_html = highlight(code_input, lexer, html_formatter)
