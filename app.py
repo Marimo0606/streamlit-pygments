@@ -1,7 +1,7 @@
 import streamlit as st
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name, get_all_lexers
-from pygments.formatters import HtmlFormatter
+from pygments.formatters import HtmlFormatter, BbcodeFormatter
 from pygments.styles import get_all_styles
 
 # タイトル
@@ -21,16 +21,19 @@ style = st.selectbox("🎨 ハイライトスタイルを選択：", list(get_al
 if code_input:
     # Lexerとフォーマッタの取得
     lexer = get_lexer_by_name(lang)
-    formatter = HtmlFormatter(style=style, noclasses=True, wrapcode=True)
-    highlighted_html = f"<pre>{highlight(code_input, lexer, formatter)}</pre>"
+    html_formatter = HtmlFormatter(style=style, noclasses=True)
+    bbcode_formatter = BbcodeFormatter()
 
-    # BBCode形式（タグ付き）で出力（簡易的にタグ置換）
-    bbcode = f"[code={lang}]\n{code_input}\n[/code]"
+    # HTML形式でハイライト
+    highlighted_html = highlight(code_input, lexer, html_formatter)
+
+    # BBCode形式でハイライト出力
+    highlighted_bbcode = highlight(code_input, lexer, bbcode_formatter)
 
     st.subheader("🖥 プレビュー：")
     st.markdown(highlighted_html, unsafe_allow_html=True)
 
     st.subheader("📦 BBCode：")
-    st.code(bbcode, language="text")
+    st.code(highlighted_bbcode, language="text")
 
     st.caption("※ BBCodeはフォーラムなどで使用できるプレーンテキスト形式です。")
