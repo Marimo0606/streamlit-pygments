@@ -1,7 +1,8 @@
 import streamlit as st
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name, get_all_lexers
-from pygments.formatters import HtmlFormatter, BbcodeFormatter
+from pygments.formatters.html import HtmlFormatter
+from pygments.formatters.bbcode import BBCodeFormatter
 from pygments.styles import get_all_styles
 
 # タイトル
