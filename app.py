@@ -21,10 +21,8 @@ style = st.selectbox("🎨 ハイライトスタイルを選択：", list(get_al
 if code_input:
     # Lexerとフォーマッタの取得
     lexer = get_lexer_by_name(lang)
-    formatter = HtmlFormatter(style=style, noclasses=True)
-
-    # HTML形式でハイライト
-    highlighted_html = highlight(code_input, lexer, formatter)
+    formatter = HtmlFormatter(style=style, noclasses=True, wrapcode=True)
+    highlighted_html = f"<pre>{highlight(code_input, lexer, formatter)}</pre>"
 
     # BBCode形式（タグ付き）で出力（簡易的にタグ置換）
     bbcode = f"[code={lang}]\n{code_input}\n[/code]"
