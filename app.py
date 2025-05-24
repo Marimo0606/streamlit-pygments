@@ -14,8 +14,8 @@ code_input = st.text_area("💬 ハイライトしたいコードを入力して
 
 # 言語指定
 all_lexers = sorted(get_all_lexers(), key=lambda x: x[0].lower())
-lang_names_set = {lexer[1][0] for lexer in all_lexers if lexer[1] and lexer[1][0] != "python"}
-lang_names = ["python", "(自動判定)"] + sorted(lang_names_set - {"python"})
+lang_names_set = {lexer[1][0] for lexer in all_lexers if lexer[1]}
+lang_names = ["python", "(自動判定)"] + sorted(lang_names_set - {"python"}) if "python" in lang_names_set else ["(自動判定)"] + sorted(lang_names_set)
 lang = st.selectbox("🗂 言語を選択：", lang_names, index=0)
 
 # スタイル指定
@@ -50,3 +50,5 @@ if code_input:
 
     st.subheader("📦 BBCode：")
     st.code(highlighted_bbcode, language="text")
+
+    st.caption("※ BBCodeはフォーラムなどで使用できるプレーンテキスト形式です。")
