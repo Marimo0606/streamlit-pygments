@@ -5,6 +5,7 @@ from pygments.lexers import get_lexer_by_name, get_all_lexers
 from pygments.formatters.html import HtmlFormatter
 from pygments.formatters import get_formatter_by_name
 from pygments.styles import get_all_styles
+import re
 
 # タイトル
 st.title("🔍 Pygments ハイライトツール")
@@ -59,6 +60,7 @@ if code_input:
 
     # BBCode形式でハイライト出力
     highlighted_bbcode = highlight(code_input, lexer, bbcode_formatter)
+    highlighted_bbcode = re.sub(r"\[color=#[0-9A-Fa-f]{6}\](\s*?)\[/color\]", r"\1", highlighted_bbcode)
 
     st.subheader("🖥 プレビュー：")
     line_count = code_input.count('\n') + 1
