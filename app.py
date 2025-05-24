@@ -19,7 +19,24 @@ lang_names = ["python", "(自動判定)"] + sorted(lang_names_set - {"python"}) 
 lang = st.selectbox("🗂 言語を選択：", lang_names, index=0)
 
 # スタイル指定
-style = st.selectbox("🎨 ハイライトスタイルを選択：", list(get_all_styles()))
+# カスタム順序スタイル（優先表示）
+primary_styles = [
+    "bw", "sas", "staroffice", "xcode", "default", "monokai",
+    "lightbulb", "github-dark", "rrt", "その他（低コントラスト含む）"
+]
+
+# 全スタイル取得（重複を除く）
+all_styles_set = set(get_all_styles())
+remaining_styles = sorted(list(all_styles_set - set(primary_styles)))
+
+# スタイル選択
+style_selection = st.selectbox("🎨 ハイライトスタイルを選択：", primary_styles)
+
+# 「その他」スタイル選択肢を動的に表示
+if style_selection == "その他（低コントラスト含む）":
+    style = st.selectbox("🔍 その他のスタイル：", remaining_styles)
+else:
+    style = style_selection
 
 if code_input:
     # Lexerとフォーマッタの取得
