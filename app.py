@@ -24,7 +24,7 @@ if code_input:
     # Lexerとフォーマッタの取得
     lexer = get_lexer_by_name(lang)
     html_formatter = HtmlFormatter(style=style, noclasses=True, nowrap=True)
-    bbcode_formatter = get_formatter_by_name("bbcode")
+    bbcode_formatter = get_formatter_by_name("bbcode", style=style)
 
     # HTML形式でハイライト（色 + インデント保持 + インラインスタイル）
     raw_html = highlight(code_input, lexer, html_formatter)
