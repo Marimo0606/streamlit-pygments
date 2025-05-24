@@ -23,17 +23,13 @@ style = st.selectbox("🎨 ハイライトスタイルを選択：", list(get_al
 if code_input:
     # Lexerとフォーマッタの取得
     lexer = get_lexer_by_name(lang)
-    html_formatter = HtmlFormatter(style=style, noclasses=False)
+    html_formatter = HtmlFormatter(style=style, noclasses=True, nowrap=True)
     bbcode_formatter = get_formatter_by_name("bbcode")
 
-    # CSSスタイル生成
-    style_defs = html_formatter.get_style_defs('.highlight')
-
-    # HTML形式でハイライト（色 + インデント保持）
+    # HTML形式でハイライト（色 + インデント保持 + インラインスタイル）
     raw_html = highlight(code_input, lexer, html_formatter)
     highlighted_html = f"""
-    <style>{style_defs}</style>
-    <div class="highlight">{raw_html}</div>
+    <div style="background-color:#f5f5f5; padding: 1em; overflow-x:auto; white-space:pre; font-family:monospace;">{raw_html}</div>
     """
 
     # BBCode形式でハイライト出力
