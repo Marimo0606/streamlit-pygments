@@ -29,14 +29,14 @@ if code_input:
     # HTML形式でハイライト（色 + インデント保持 + インラインスタイル）
     raw_html = highlight(code_input, lexer, html_formatter)
     highlighted_html = f"""
-    <div style="background-color:#f5f5f5; padding: 1em; overflow-x:auto; white-space:pre; font-family:monospace;">{raw_html}</div>
+    <div style="background-color:#f5f5f5; padding: 1em; overflow-x:auto; white-space:pre-wrap; font-family:monospace; margin-bottom:0;">{raw_html}</div>
     """
 
     # BBCode形式でハイライト出力
     highlighted_bbcode = highlight(code_input, lexer, bbcode_formatter)
 
     st.subheader("🖥 プレビュー：")
-    components.html(highlighted_html, height=500, scrolling=True)
+    components.html(highlighted_html, height=None, scrolling=False)
 
     st.subheader("📦 BBCode：")
     st.code(highlighted_bbcode, language="text")
