@@ -36,7 +36,9 @@ if code_input:
     highlighted_bbcode = highlight(code_input, lexer, bbcode_formatter)
 
     st.subheader("🖥 プレビュー：")
-    components.html(highlighted_html, height=None, scrolling=False)
+        line_count = code_input.count('\n') + 1
+    height_px = min(800, max(100, line_count * 24))
+    components.html(highlighted_html, height=height_px, scrolling=True)
 
     st.subheader("📦 BBCode：")
     st.code(highlighted_bbcode, language="text")
